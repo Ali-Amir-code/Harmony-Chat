@@ -1,0 +1,15 @@
+{
+  "name": "webchat",
+  "version": "1.0.0",
+  "description": "A web-based chat app.",
+  "license": "MIT",
+  "author": "Ali Amir",
+  "type": "ES6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
