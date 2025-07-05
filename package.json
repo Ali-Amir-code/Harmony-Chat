@@ -4,12 +4,14 @@
   "description": "A web-based chat app.",
   "license": "MIT",
   "author": "Ali Amir",
-  "type": "ES6",
-  "main": "index.js",
+  "type": "module",
+  "main": ".\\server\\index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server/server.js"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
   }
 }
