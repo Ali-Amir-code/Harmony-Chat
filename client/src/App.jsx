@@ -1,12 +1,16 @@
-import ThemeToggleButton from "./components/ThemeToggleButton"
-function App() {
 
+import Box from "@mui/material/Box";
+import Footer from './components/Footer'
+function App() {
   return (
     <>
-    <h1>Welcome to Harmony Chat</h1>
-    <ThemeToggleButton />
+      <Box display="flex" flexDirection="column" minHeight="100vh">
+        <h1>Welcome to Harmony Chat</h1>
+      
+        <Footer />
+      </Box>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
