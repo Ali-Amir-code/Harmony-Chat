@@ -1,19 +1,23 @@
 import Typography from "@mui/material/Typography";
-import GradientText from "../components/GradientText";
-import Form from "../components/Form";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import { useTheme } from "@mui/material";
+
+import GradientText from "../components/GradientText";
+import Form from "../components/Form";
+import CustomProgress from "../components/CustomProgress";
+
 import axios from "axios";
+
 import { useNavigate } from "react-router";
 
 export default function Login() {
   const navigate = useNavigate();
   const theme = useTheme();
-  
-  async function handleLogin(e) {
+
+  async function handleRegister(e) {
     e.preventDefault();
     const res = await axios.post("/api/auth/login", {
       username: "admin",
@@ -22,9 +26,19 @@ export default function Login() {
     console.log(res.data);
   }
 
-  function handleNewUser() {
-    navigate('/register')
+  function handleOldUser() {
+    navigate("/login");
   }
+
+  function handleUsernameChange(e){
+    if(e.target.value.trim() === ''){
+      document.getElementById('usernameProgress').style.display = 'none'
+    }else{
+      document.getElementById('usernameProgress').style.display = 'flex'
+      
+    }
+  }
+
   return (
     <>
       <Box
@@ -52,20 +66,49 @@ export default function Login() {
           }}
         >
           <Typography variant="h3">
-            Login To Harmony Chat
+            Register To Harmony Chat
           </Typography>
           <Divider />
           <Form>
+            <Box display={"flex"} gap={2}>
+              <TextField
+                id="name"
+                label="Enter Your Name"
+                variant="outlined"
+                required={true}
+                sx={{ width: "50%" }}
+              />
+              <TextField
+                id="username"
+                label="Enter your Username"
+                variant="outlined"
+                required={true}
+                sx={{ width: "50%" }}
+                onChange={handleUsernameChange}
+              />
+            </Box>
+            <Box id="usernameProgress" display={'none'} flexDirection={'row-reverse'}>
+              <CustomProgress size={20} label="Checking Username" type="gradientContinous"/>
+            </Box>
             <TextField
-              id="username"
-              label="Username"
+              id="email"
+              label="Enter Email Address"
               variant="outlined"
               fullWidth
+              type="email"
               required={true}
             />
             <TextField
               id="password"
-              label="Password"
+              label="Enter Password"
+              variant="outlined"
+              fullWidth
+              type="password"
+              required={true}
+            />
+            <TextField
+              id="confirmPassword"
+              label="Re-Enter Password"
               variant="outlined"
               fullWidth
               type="password"
@@ -78,14 +121,14 @@ export default function Login() {
                 marginTop: 2,
               }}
               type="submit"
-              onClick={handleLogin}
+              onClick={handleRegister}
             >
-              Log In
+              Register
             </Button>
           </Form>
-          <Typography variant="body2">New to Harmony Chat?? </Typography>{" "}
-          <Button color="initial" onClick={handleNewUser}>
-            Register Here
+          <Typography variant="body2">Already Registered??</Typography>{" "}
+          <Button color="initial" onClick={handleOldUser}>
+            Login Here
           </Button>
         </Box>
       </Box>

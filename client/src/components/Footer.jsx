@@ -1,9 +1,12 @@
-import React from "react";
-import { Box, Container, Typography, Divider, useTheme } from "@mui/material";
+import { Box, useTheme, Button, useMediaQuery } from "@mui/material";
 import ThemeToggleButton from "./ThemeToggleButton";
 import DevInf from "./DevInf";
+import SettingsIcon from "@mui/icons-material/Settings";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+
 const Footer = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box
@@ -12,15 +15,32 @@ const Footer = () => {
         mt: "auto",
         py: 0,
         px: 2,
-        bgcolor: theme.palette.background.paper, // dynamic based on theme
-        color: theme.palette.text.secondary, // auto-adjusts to theme
+        bgcolor: theme.palette.background.paper,
+        color: theme.palette.text.secondary,
         textAlign: "center",
         borderTop: `1px solid ${theme.palette.divider}`,
+        position: "fixed",
+        bottom: 0,
+        width: "100%",
       }}
     >
-      <Box maxWidth="false" display={"flex"} alignItems={"center"} justifyContent={"space-between"} px={2}>
+      <Box
+        maxWidth="false"
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        px={isMobile ? 0 : 2}
+      >
         <DevInf />
-        <ThemeToggleButton />
+        <Box display={"flex"}>
+          <Button>
+            <SettingsIcon sx={{ color: theme.palette.text.primary }} />
+          </Button>
+          <Button>
+            <NotificationsIcon sx={{ color: theme.palette.text.primary }} />
+          </Button>
+          <ThemeToggleButton />
+        </Box>
       </Box>
     </Box>
   );

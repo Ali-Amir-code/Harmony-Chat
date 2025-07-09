@@ -4,11 +4,12 @@ import Slide from "@mui/material/Slide";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Typography, Box } from "@mui/material";
 
-export default function GradientCircularProgress({
+export default function CustomProgress({
   delay = 0,
   label = "",
   type = "continous",
   value = 0,
+  size = 40,
 }) {
   const [loading, setLoading] = React.useState(false);
   const timerRef = React.useRef(undefined);
@@ -28,7 +29,7 @@ export default function GradientCircularProgress({
           unmountOnExit
         >
           <Box display="flex" alignItems="center" gap={2}>
-            <CircularProgress />
+            <CircularProgress size={size}/>
             <Slide direction="up" in={loading}>
               <Typography>{label}</Typography>
             </Slide>
@@ -41,7 +42,7 @@ export default function GradientCircularProgress({
       <>
         <svg width={0} height={0}>
           <defs>
-            <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <linearGradient  id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#d4af37" />
               <stop offset="100%" stopColor="#0A192F" />
             </linearGradient>
@@ -57,6 +58,7 @@ export default function GradientCircularProgress({
           <Box display="flex" alignItems="center" gap={2}>
             <CircularProgress
               sx={{ "svg circle": { stroke: "url(#my_gradient)" } }}
+              size={size}
             />
             <Slide direction="up" in={loading}>
               <Typography>{label}</Typography>
@@ -75,7 +77,7 @@ export default function GradientCircularProgress({
         >
           <Box display="flex" alignItems="center" gap={2}>
             <Box sx={{ position: "relative", display: "inline-flex" }}>
-              <CircularProgress variant="determinate" value={value} />
+              <CircularProgress variant="determinate" value={value} size={size}/>
               <Box
                 sx={{
                   top: 0,

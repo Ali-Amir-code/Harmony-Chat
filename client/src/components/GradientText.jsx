@@ -1,5 +1,12 @@
-import Typography  from "@mui/material/Typography";
-export default function GradientText({children, fontSize = "inherit"}) {
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material";
+export default function GradientText({
+  children,
+  fontSize = "inherit",
+  isStroked = false,
+  strokeSize = 1,
+}) {
+  const theme = useTheme()
   return (
     <>
       <Typography
@@ -10,6 +17,7 @@ export default function GradientText({children, fontSize = "inherit"}) {
           background: "-webkit-linear-gradient(#d4af37, #0A192F)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
+          WebkitTextStroke: isStroked ? `${strokeSize}px ${theme.palette.custom.contrastColor}`: 'none',
         }}
       >
         {children}
