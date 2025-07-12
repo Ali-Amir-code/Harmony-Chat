@@ -1,8 +1,9 @@
 import { createContext, useContext, useMemo, useState, useEffect } from "react";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import getThemeOptions from "./theme";
+import getThemeOptions from "../theme/theme";
 
 const ThemeModeContext = createContext();
+// eslint-disable-next-line react-refresh/only-export-components
 export const useThemeMode = () => useContext(ThemeModeContext);
 
 export const ThemeModeProvider = ({ children }) => {

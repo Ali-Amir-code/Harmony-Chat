@@ -1,11 +1,14 @@
 import { useMediaQuery, useTheme } from "@mui/material"
 import Box from "@mui/material/Box"
-import { Route, Routes } from "react-router"
+import { Route, Routes, useLocation } from "react-router"
 import ContactList from "../components/ContactList";
 import MessageScreen from "../components/MessageScreen";
-const Home = () => {
+const Home = ({contacts}) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
+
+  const location = useLocation();
+  const data = location.state?.data;
 
   return isMobile ? (
     <Routes>

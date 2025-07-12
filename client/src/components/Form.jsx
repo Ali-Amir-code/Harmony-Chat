@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-export default function Form({ children }) {
+export default function Form({ children, onSubmit }) {
   return (
     <>
       <Box
@@ -10,6 +10,7 @@ export default function Form({ children }) {
         display={"flex"}
         flexDirection={"column"}
         gap={2}
+        onSubmit={onSubmit}
       >
         {children}
       </Box>

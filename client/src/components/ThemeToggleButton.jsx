@@ -3,8 +3,7 @@ import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import { useThemeMode } from "../theme/ThemeContext";
-
+import { useThemeMode } from "../contexts/ThemeContext";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 52,
@@ -77,7 +76,7 @@ export default function CustomizedSwitches() {
             onChange={toggleTheme}
           />
         }
-        label= {isMobile ? '' : 'Switch Mode'}
+        label={isMobile ? "" : "Switch Mode"}
       />
     </FormGroup>
   );

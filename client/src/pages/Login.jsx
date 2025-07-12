@@ -1,30 +1,22 @@
-import Typography from "@mui/material/Typography";
-import GradientText from "../components/GradientText";
-import Form from "../components/Form";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import { useTheme } from "@mui/material";
-import axios from "axios";
 import { useNavigate } from "react-router";
+
+import {
+  useTheme,
+  Typography,
+  Box,
+  TextField,
+  Button,
+  Divider,
+} from "@mui/material";
+
+import Form from "../components/Form";
+
+import { handleLogin } from "../services/login";
 
 export default function Login() {
   const navigate = useNavigate();
   const theme = useTheme();
-  
-  async function handleLogin(e) {
-    e.preventDefault();
-    const res = await axios.post("/api/auth/login", {
-      username: "admin",
-      password: "1234",
-    });
-    console.log(res.data);
-  }
 
-  function handleNewUser() {
-    navigate('/register')
-  }
   return (
     <>
       <Box
@@ -51,17 +43,21 @@ export default function Login() {
             border: "1px solid rgba(209, 213, 219, 0.3)",
           }}
         >
-          <Typography variant="h3">
-            Login To Harmony Chat
-          </Typography>
+          <Typography variant="h3">Login To Harmony Chat</Typography>
           <Divider />
-          <Form>
+          <Form onSubmit={e => handleLogin(e, navigate)}>
             <TextField
               id="username"
               label="Username"
               variant="outlined"
               fullWidth
               required={true}
+              slotProps={{
+                htmlInput: {
+                  pattern: ".*\\S.*",
+                  title: "This field cannot be blank or just spaces.",
+                },
+              }}
             />
             <TextField
               id="password"
@@ -71,20 +67,29 @@ export default function Login() {
               type="password"
               required={true}
             />
+               <Typography
+                id="userInfoText"
+                variant="body1"
+                color="error"
+                sx={{
+                  textAlign: "center",
+                  WebkitTextStroke: ".2px Black",
+                }}
+              >
+              </Typography>
             <Button
               fullWidth
               variant="contained"
-              sx={{
+              sx={{ 
                 marginTop: 2,
               }}
               type="submit"
-              onClick={handleLogin}
             >
               Log In
             </Button>
           </Form>
           <Typography variant="body2">New to Harmony Chat?? </Typography>{" "}
-          <Button color="initial" onClick={handleNewUser}>
+          <Button color="initial" onClick={() => navigate("/register")}>
             Register Here
           </Button>
         </Box>

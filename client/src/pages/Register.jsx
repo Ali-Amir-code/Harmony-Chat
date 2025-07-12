@@ -5,39 +5,19 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import { useTheme } from "@mui/material";
 
-import GradientText from "../components/GradientText";
 import Form from "../components/Form";
 import CustomProgress from "../components/CustomProgress";
 
-import axios from "axios";
+import {
+  handleRegister,
+  handleConfirmPasswordChange,
+} from "../services/register";
 
 import { useNavigate } from "react-router";
 
 export default function Login() {
   const navigate = useNavigate();
   const theme = useTheme();
-
-  async function handleRegister(e) {
-    e.preventDefault();
-    const res = await axios.post("/api/auth/login", {
-      username: "admin",
-      password: "1234",
-    });
-    console.log(res.data);
-  }
-
-  function handleOldUser() {
-    navigate("/login");
-  }
-
-  function handleUsernameChange(e){
-    if(e.target.value.trim() === ''){
-      document.getElementById('usernameProgress').style.display = 'none'
-    }else{
-      document.getElementById('usernameProgress').style.display = 'flex'
-      
-    }
-  }
 
   return (
     <>
@@ -65,11 +45,9 @@ export default function Login() {
             border: "1px solid rgba(209, 213, 219, 0.3)",
           }}
         >
-          <Typography variant="h3">
-            Register To Harmony Chat
-          </Typography>
+          <Typography variant="h3">Register To Harmony Chat</Typography>
           <Divider />
-          <Form>
+          <Form onSubmit={(e) => handleRegister(e, navigate)}>
             <Box display={"flex"} gap={2}>
               <TextField
                 id="name"
@@ -77,6 +55,12 @@ export default function Login() {
                 variant="outlined"
                 required={true}
                 sx={{ width: "50%" }}
+                slotProps={{
+                  htmlInput: {
+                    pattern: ".*\\S.*",
+                    title: "This field cannot be blank or just spaces.",
+                  },
+                }}
               />
               <TextField
                 id="username"
@@ -84,11 +68,13 @@ export default function Login() {
                 variant="outlined"
                 required={true}
                 sx={{ width: "50%" }}
-                onChange={handleUsernameChange}
+                slotProps={{
+                  htmlInput: {
+                    pattern: ".*\\S.*",
+                    title: "This field cannot be blank or just spaces.",
+                  },
+                }}
               />
-            </Box>
-            <Box id="usernameProgress" display={'none'} flexDirection={'row-reverse'}>
-              <CustomProgress size={20} label="Checking Username" type="gradientContinous"/>
             </Box>
             <TextField
               id="email"
@@ -113,21 +99,31 @@ export default function Login() {
               fullWidth
               type="password"
               required={true}
+              onChange={handleConfirmPasswordChange}
             />
+            <Typography
+              id="userInfoText"
+              variant="body1"
+              color="error"
+              sx={{
+                textAlign: "center",
+                WebkitTextStroke: ".2px Black",
+              }}
+            ></Typography>
             <Button
+              id="registerButton"
               fullWidth
               variant="contained"
               sx={{
                 marginTop: 2,
               }}
               type="submit"
-              onClick={handleRegister}
             >
               Register
             </Button>
           </Form>
           <Typography variant="body2">Already Registered??</Typography>{" "}
-          <Button color="initial" onClick={handleOldUser}>
+          <Button color="initial" onClick={() => navigate("/login")}>
             Login Here
           </Button>
         </Box>

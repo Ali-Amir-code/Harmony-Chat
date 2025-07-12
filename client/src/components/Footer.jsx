@@ -1,10 +1,15 @@
 import { Box, useTheme, Button, useMediaQuery } from "@mui/material";
-import ThemeToggleButton from "./ThemeToggleButton";
-import DevInf from "./DevInf";
+
 import SettingsIcon from "@mui/icons-material/Settings";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
+import {useAuthContext} from '../contexts/AuthContext'
+
+import ThemeToggleButton from "./ThemeToggleButton";
+import DevInf from "./DevInf";
+
 const Footer = () => {
+  const auth = useAuthContext();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -33,8 +38,8 @@ const Footer = () => {
       >
         <DevInf />
         <Box display={"flex"}>
-          <Button>
-            <SettingsIcon sx={{ color: theme.palette.text.primary }} />
+          <Button disabled={!auth.isLoggedIn} >
+            <SettingsIcon sx={auth.isLoggedIn?{ color: theme.palette.text.primary }:{ color: theme.palette.text.disabled }} />
           </Button>
           <Button>
             <NotificationsIcon sx={{ color: theme.palette.text.primary }} />
